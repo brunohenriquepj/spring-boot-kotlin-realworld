@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.example"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -26,6 +26,7 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
 }
 
 tasks.withType<KotlinCompile> {
