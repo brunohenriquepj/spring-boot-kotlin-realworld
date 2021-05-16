@@ -120,7 +120,7 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: build/reports/jacoco/test/html/index.html
+          files: build/reports/jacoco/test/jacocoTestReport.xml
           flags: unittest
           name: codecov-umbrella
           fail_ci_if_error: true
