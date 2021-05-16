@@ -7,16 +7,30 @@
 
 ## Setup Java with [SDKMAN!](https://github.com/sdkman/sdkman-cli)
 
-    sdk env install
+```shell
+sdk env install
+```
 
+---
 ## Build
 
-    ./gradlew build --exclude-task test 
+```shell
+./gradlew build --exclude-task test 
+```
 
+---
 ## Test
 
-     ./gradlew test --stacktrace
+```shell
+./gradlew test --stacktrace
+```
 
-## Run
+---
+## Run api
 
-    ./gradlew bootRun
+```shel
+./gradlew bootRun
+```
+
+- Go to [swagger](http://localhost:8080/swagger-ui/index.html) or [actuator](http://localhost:8081/actuator)
+
