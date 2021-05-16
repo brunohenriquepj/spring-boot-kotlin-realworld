@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.4.32"
 	kotlin("plugin.spring") version "1.4.32"
 	kotlin("plugin.jpa") version "1.4.32"
+	jacoco
 }
 
 group = "com.example"
@@ -34,6 +35,19 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
-tasks.withType<Test> {
+tasks.test {
 	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+}
+
+tasks.jacocoTestReport {
+	reports {
+		csv.isEnabled = false
+		xml.isEnabled = true
+		html.isEnabled = true
+	}
 }
