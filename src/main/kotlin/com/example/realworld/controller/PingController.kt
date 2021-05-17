@@ -1,15 +1,14 @@
 package com.example.realworld.controller
 
-import com.example.realworld.dto.Hello
+import com.example.realworld.dto.PingResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class HelloController {
+class PingController {
     @GetMapping
-    fun hello(): ResponseEntity<Hello> {
-        return ResponseEntity.ok(Hello("Hello World!"))
+    fun ping(): ResponseEntity<PingResponse> {
+        return ResponseEntity.ok(PingResponse.of("Ok!"))
     }
 }
-
