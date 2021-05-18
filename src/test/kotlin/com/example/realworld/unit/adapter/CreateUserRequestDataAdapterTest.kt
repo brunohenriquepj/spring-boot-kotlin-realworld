@@ -1,5 +1,6 @@
-package com.example.realworld.adapter
+package com.example.realworld.unit.adapter
 
+import com.example.realworld.adapter.CreateUserRequestDataAdapter
 import com.example.realworld.adapter.implementation.CreateUserRequestDataAdapterImpl
 import com.example.realworld.entity.User
 import com.example.realworld.util.builder.user.CreateUserRequestDataBuilder

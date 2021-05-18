@@ -1,16 +1,16 @@
-package com.example.realworld.service
+package com.example.realworld.unit.service
 
 import com.example.realworld.adapter.CreateUserRequestDataAdapter
 import com.example.realworld.adapter.UserAdapter
 import com.example.realworld.exception.BusinessValidationException
 import com.example.realworld.repository.UserRepository
+import com.example.realworld.service.UserService
 import com.example.realworld.service.implementation.UserServiceImpl
 import com.example.realworld.util.builder.user.CreateUserRequestDataBuilder
 import com.example.realworld.util.builder.user.CreateUserResponseDataBuilder
 import com.example.realworld.util.builder.user.UserBuilder
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

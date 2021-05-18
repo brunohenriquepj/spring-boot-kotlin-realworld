@@ -1,5 +1,6 @@
-package com.example.realworld.constant
+package com.example.realworld.unit.constant
 
+import com.example.realworld.constant.ProfileConstant
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 

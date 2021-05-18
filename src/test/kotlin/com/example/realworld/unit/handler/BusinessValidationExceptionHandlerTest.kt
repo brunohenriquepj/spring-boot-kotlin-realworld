@@ -1,8 +1,9 @@
-package com.example.realworld.handler
+package com.example.realworld.unit.handler
 
 import com.example.realworld.dto.ErrorResponse
 import com.example.realworld.dto.ErrorResponseData
 import com.example.realworld.exception.BusinessValidationException
+import com.example.realworld.handler.BusinessValidationExceptionHandler
 import com.example.realworld.util.builder.common.StringBuilder
 import io.kotest.matchers.collections.shouldContainAll
 import org.junit.jupiter.api.Test
