@@ -1,4 +1,4 @@
-package com.example.realworld.constants
+package com.example.realworld.constant
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

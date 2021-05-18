@@ -1,4 +1,4 @@
-package com.example.realworld.constants
+package com.example.realworld.constant
 
 class ProfileConstant {
     companion object {

@@ -9,7 +9,7 @@ class CreateUserRequestDataBuilder {
     init {
         val faker = FakerPtBr.generate()
         instance = CreateUserRequestData(
-            userName = faker.name().username(),
+            userName = "TESTE",
             email = faker.internet().emailAddress(),
             password = faker.internet().password()
         )

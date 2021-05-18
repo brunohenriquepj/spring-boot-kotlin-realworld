@@ -31,6 +31,11 @@ dependencies {
     testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
     testImplementation("io.kotest:kotest-assertions-core:4.5.0")
+    testImplementation("org.testcontainers:testcontainers:1.15.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.15.3")
+    testImplementation(platform("org.testcontainers:testcontainers-bom:1.15.3"))
+    testImplementation("org.testcontainers:mysql")
+    testRuntimeOnly("mysql:mysql-connector-java")
 }
 
 tasks.withType<KotlinCompile> {
@@ -42,6 +47,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs("-Dspring.profiles.active=test")
     finalizedBy(tasks.jacocoTestReport)
 }
 

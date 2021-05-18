@@ -1,6 +1,6 @@
 package com.example.realworld.handler
 
-import com.example.realworld.constants.ProfileConstant
+import com.example.realworld.constant.ProfileConstant
 import com.example.realworld.dto.ErrorResponse
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
