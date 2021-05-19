@@ -7,7 +7,9 @@ plugins {
     kotlin("plugin.spring") version "1.4.32"
     kotlin("plugin.jpa") version "1.4.32"
     jacoco
+    id("com.adarshr.test-logger") version "3.0.0"
 }
+
 
 group = "com.example"
 version = "0.0.0"
@@ -61,4 +63,9 @@ tasks.jacocoTestReport {
         xml.isEnabled = true
         html.isEnabled = true
     }
+}
+
+testlogger {
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    showSimpleNames = true
 }
