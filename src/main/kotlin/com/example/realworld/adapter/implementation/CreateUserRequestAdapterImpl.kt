@@ -10,7 +10,7 @@ import com.example.realworld.dto.user.response.CreateUserResponseData
 class CreateUserRequestAdapterImpl : CreateUserRequestAdapter {
     override fun toCreateUserResponse(request: CreateUserRequest): CreateUserResponse {
         val responseData = CreateUserResponseData(
-            request.user.userName,
+            request.user?.userName!!,
             request.user.email,
             "TODO: add jwt token" /* TODO: add jwt token*/,
             null,

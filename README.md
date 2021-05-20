@@ -33,7 +33,7 @@ sdk env install
 ## Run api
 
 ```shel
-./gradlew bootRun
+SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
 ```
 
 - Go to [swagger](http://localhost:8080/swagger-ui/index.html) or [actuator](http://localhost:8081/actuator)

@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/users")
 class UsersController(val userService: UserService) {
     @PostMapping
     fun registration(
-        @RequestBody request: CreateUserRequest,
+        @RequestBody @Valid request: CreateUserRequest,
         @Autowired uriComponentsBuilder: UriComponentsBuilder
     ): ResponseEntity<CreateUserResponse> {
-        val response = CreateUserResponse(userService.create(request.user))
+        val response = CreateUserResponse(userService.create(request.user!!))
 
         val uri = uriComponentsBuilder.path("/api/users").build().toUri()
         return ResponseEntity.created(uri).body(response)

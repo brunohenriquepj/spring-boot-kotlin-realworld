@@ -54,8 +54,8 @@ class UsersControllerTest {
         val request = CreateUserRequest(CreateUserRequestDataBuilder().build())
 
         val expected = CreateUserResponseData(
-            userName = request.user.userName,
-            email = request.user.email,
+            userName = request.user?.userName!!,
+            email = request.user?.email!!,
             token = "TODO: add jwt token",
             bio = null,
             image = null
@@ -63,7 +63,8 @@ class UsersControllerTest {
 
         // act
         val response = restTemplate.postForEntity<CreateUserResponse>(
-            "/api/users", request, CreateUserRequest::class.java)
+            "/api/users", request, CreateUserRequest::class.java
+        )
 
         // assert
         response.statusCode shouldBe HttpStatus.CREATED

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-@Profile(ProfileConstant.Production)
+@Profile(ProfileConstant.IsNotLocal)
 class ExceptionHandler {
 
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)

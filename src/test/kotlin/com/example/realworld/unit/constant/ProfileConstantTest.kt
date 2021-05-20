@@ -7,6 +7,6 @@ import org.junit.jupiter.api.Test
 class ProfileConstantTest {
     @Test
     fun `Production should have right value`() {
-        ProfileConstant.Production shouldBe "prod"
+        ProfileConstant.IsNotLocal shouldBe "!local"
     }
 }
