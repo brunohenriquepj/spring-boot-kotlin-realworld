@@ -4,9 +4,10 @@ import com.example.realworld.dto.user.request.CreateUserRequest
 import com.example.realworld.dto.user.response.CreateUserResponse
 import com.example.realworld.dto.user.response.CreateUserResponseData
 import com.example.realworld.util.builder.user.CreateUserRequestDataBuilder
-import io.kotest.matchers.equality.shouldBeEqualToComparingFields
+import io.kotest.matchers.equality.shouldBeEqualToComparingFieldsExcept
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.shouldNot
+import io.kotest.matchers.string.beEmpty
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -49,14 +50,13 @@ class UsersControllerTest {
     }
 
     @Test
-    fun test() {
+    fun `registration should return user response when create user`() {
         // arrange
         val request = CreateUserRequest(CreateUserRequestDataBuilder().build())
 
         val expected = CreateUserResponseData(
             userName = request.user?.userName!!,
             email = request.user?.email!!,
-            token = "TODO: add jwt token",
             bio = null,
             image = null
         )
@@ -68,8 +68,8 @@ class UsersControllerTest {
 
         // assert
         response.statusCode shouldBe HttpStatus.CREATED
-        response.body shouldNotBe null
-        response.body!!.user shouldBeEqualToComparingFields expected
+        response.body!!.user.shouldBeEqualToComparingFieldsExcept(expected, CreateUserResponseData::token)
+        response.body!!.user.token.trim() shouldNot beEmpty()
     }
 }
 
