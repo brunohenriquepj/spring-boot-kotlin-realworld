@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket
 @Configuration
 class SwaggerConfiguration {
     @Bean
-    fun api() : Docket {
+    fun api(): Docket {
         return Docket(DocumentationType.SWAGGER_2)
             .apiInfo(getApiInfo())
             .select()
@@ -21,7 +21,7 @@ class SwaggerConfiguration {
             .build()
     }
 
-    private fun getApiInfo() : ApiInfo {
+    private fun getApiInfo(): ApiInfo {
         return ApiInfoBuilder()
             .title("RealWorld API Doc")
             .description("Real World API")
