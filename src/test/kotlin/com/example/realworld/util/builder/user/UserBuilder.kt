@@ -11,6 +11,7 @@ class UserBuilder {
         instance = User(
             email = faker.internet().emailAddress(),
             userName = faker.name().username(),
+            password = faker.internet().password(),
             bio = faker.lorem().paragraph(),
             image = faker.internet().image()
         )

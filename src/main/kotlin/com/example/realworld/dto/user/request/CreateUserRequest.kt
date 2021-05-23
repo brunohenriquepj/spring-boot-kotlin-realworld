@@ -23,7 +23,7 @@ class CreateUserRequestData(
         private set
 
     @field:NotBlank
-    @field:Length(max = 100)
+    @field:Length(min = 8, max = 100)
     var password: String = password
         private set
 }

@@ -4,8 +4,10 @@ import com.example.realworld.adapter.CreateUserRequestDataAdapter
 import com.example.realworld.adapter.UserAdapter
 import com.example.realworld.exception.BusinessValidationException
 import com.example.realworld.repository.UserRepository
+import com.example.realworld.service.AuthenticationTokenService
 import com.example.realworld.service.UserService
 import com.example.realworld.service.implementation.UserServiceImpl
+import com.example.realworld.util.builder.common.StringBuilder
 import com.example.realworld.util.builder.user.CreateUserRequestDataBuilder
 import com.example.realworld.util.builder.user.CreateUserResponseDataBuilder
 import com.example.realworld.util.builder.user.UserBuilder
@@ -18,17 +20,19 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 
 class UserServiceTest {
-    private var userAdapterMock: UserAdapter
-    private var createUserRequestDataAdapterMock: CreateUserRequestDataAdapter
-    private var userRepositoryMock: UserRepository
+    private val authenticationTokenServiceMock: AuthenticationTokenService = mockk()
+    private var userAdapterMock: UserAdapter = mockk()
+    private var createUserRequestDataAdapterMock: CreateUserRequestDataAdapter = mockk()
+    private var userRepositoryMock: UserRepository = mockk()
     private val service: UserService
 
     init {
-        userRepositoryMock = mockk<UserRepository>()
-        createUserRequestDataAdapterMock = mockk<CreateUserRequestDataAdapter>()
-        userAdapterMock = mockk<UserAdapter>()
-
-        service = UserServiceImpl(userRepositoryMock, createUserRequestDataAdapterMock, userAdapterMock)
+        service = UserServiceImpl(
+            authenticationTokenService = authenticationTokenServiceMock,
+            userRepository = userRepositoryMock,
+            createUserRequestDataAdapter = createUserRequestDataAdapterMock,
+            userAdapter = userAdapterMock
+        )
     }
 
     @Test
@@ -38,11 +42,13 @@ class UserServiceTest {
         val user = UserBuilder().build()
         val createdUser = UserBuilder().build()
         val responseData = CreateUserResponseDataBuilder().build()
+        val authenticationToken = StringBuilder().build()
 
         every { userRepositoryMock.findByEmailOrUserName(requestData.email, requestData.userName) } returns null
         every { createUserRequestDataAdapterMock.toUser(requestData) } returns user
         every { userRepositoryMock.save(user) } returns createdUser
-        every { userAdapterMock.toCreateUserResponseData(createdUser) } returns responseData
+        every { authenticationTokenServiceMock.generateToken(createdUser) } returns authenticationToken
+        every { userAdapterMock.toCreateUserResponseData(createdUser, authenticationToken) } returns responseData
 
         val expected = responseData.copy()
 
@@ -54,7 +60,8 @@ class UserServiceTest {
             userRepositoryMock.findByEmailOrUserName(requestData.email, requestData.userName)
             createUserRequestDataAdapterMock.toUser(requestData)
             userRepositoryMock.save(user)
-            userAdapterMock.toCreateUserResponseData(createdUser)
+            userAdapterMock.toCreateUserResponseData(createdUser, authenticationToken)
+            authenticationTokenServiceMock.generateToken(createdUser)
         }
 
         actual shouldBeEqualToComparingFields expected
@@ -83,7 +90,7 @@ class UserServiceTest {
         verify(exactly = 0) {
             createUserRequestDataAdapterMock.toUser(any())
             userRepositoryMock.save(any())
-            userAdapterMock.toCreateUserResponseData(any())
+            userAdapterMock.toCreateUserResponseData(any(), any())
         }
 
         actual.message shouldBe expected.message

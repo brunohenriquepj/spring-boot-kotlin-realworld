@@ -1,4 +1,4 @@
-package com.example.realworld.controller
+package com.example.realworld.integration.controller
 
 import com.example.realworld.dto.user.request.CreateUserRequest
 import com.example.realworld.dto.user.response.CreateUserResponse

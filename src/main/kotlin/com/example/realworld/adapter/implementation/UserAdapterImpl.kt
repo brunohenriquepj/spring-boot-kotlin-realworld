@@ -7,13 +7,13 @@ import com.example.realworld.entity.User
 
 @RequestScopeComponent
 class UserAdapterImpl : UserAdapter {
-    override fun toCreateUserResponseData(user: User): CreateUserResponseData {
+    override fun toCreateUserResponseData(user: User, authenticationToken: String): CreateUserResponseData {
         return CreateUserResponseData(
-            user.userName,
-            user.email,
-            "TODO: add jwt token" /* TODO: add jwt token */,
-            user.bio,
-            user.image
+            userName = user.userName,
+            email = user.email,
+            token = authenticationToken,
+            bio = user.bio,
+            image = user.image
         )
     }
 }

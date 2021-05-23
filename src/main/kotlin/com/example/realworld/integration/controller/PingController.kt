@@ -1,4 +1,4 @@
-package com.example.realworld.controller
+package com.example.realworld.integration.controller
 
 import com.example.realworld.dto.PingResponse
 import org.springframework.http.ResponseEntity
