@@ -23,7 +23,7 @@ class UserDetailsServiceTest {
         val user = UserBuilder().build()
         val userName = user.userName
 
-        every { userRepositoryMock.findByUserName(userName) } returns user
+        every { userRepositoryMock.findByEmail(userName) } returns user
 
         val expected = UserDetailsImpl(user)
 
@@ -33,7 +33,7 @@ class UserDetailsServiceTest {
 
         // assert
         verify(exactly = 1) {
-            userRepositoryMock.findByUserName(userName)
+            userRepositoryMock.findByEmail(userName)
         }
 
         actual shouldBeEqualToComparingFields expected
@@ -44,7 +44,7 @@ class UserDetailsServiceTest {
         // arrange
         val userName = UserBuilder().build().userName
 
-        every { userRepositoryMock.findByUserName(userName) } returns null
+        every { userRepositoryMock.findByEmail(userName) } returns null
 
         // act
         val actual = shouldThrowExactly<UsernameNotFoundException> {
@@ -54,7 +54,7 @@ class UserDetailsServiceTest {
 
         // assert
         verify(exactly = 1) {
-            userRepositoryMock.findByUserName(userName)
+            userRepositoryMock.findByEmail(userName)
         }
 
         actual.message shouldBe "Username or password invalid!"

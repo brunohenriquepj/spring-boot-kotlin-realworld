@@ -4,6 +4,7 @@ import com.example.realworld.service.UserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -21,6 +22,11 @@ class SecurityConfiguration(
         return BCryptPasswordEncoder()
     }
 
+    @Bean
+    override fun authenticationManager(): AuthenticationManager {
+        return super.authenticationManager()
+    }
+
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder())
     }
@@ -30,6 +36,7 @@ class SecurityConfiguration(
             .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
             .anyRequest().authenticated()
             .and()
             .csrf().disable()

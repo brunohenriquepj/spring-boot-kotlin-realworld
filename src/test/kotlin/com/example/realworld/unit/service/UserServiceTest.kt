@@ -31,7 +31,9 @@ class UserServiceTest {
             authenticationTokenService = authenticationTokenServiceMock,
             userRepository = userRepositoryMock,
             createUserRequestDataAdapter = createUserRequestDataAdapterMock,
-            userAdapter = userAdapterMock
+            userAdapter = userAdapterMock,
+            authenticationManager = mockk(),
+            loginRequestDataAdapter = mockk()
         )
     }
 
@@ -47,7 +49,7 @@ class UserServiceTest {
         every { userRepositoryMock.findByEmailOrUserName(requestData.email, requestData.userName) } returns null
         every { createUserRequestDataAdapterMock.toUser(requestData) } returns user
         every { userRepositoryMock.save(user) } returns createdUser
-        every { authenticationTokenServiceMock.generateToken(createdUser) } returns authenticationToken
+        every { authenticationTokenServiceMock.generateToken(createdUser.email) } returns authenticationToken
         every { userAdapterMock.toCreateUserResponseData(createdUser, authenticationToken) } returns responseData
 
         val expected = responseData.copy()
@@ -61,7 +63,7 @@ class UserServiceTest {
             createUserRequestDataAdapterMock.toUser(requestData)
             userRepositoryMock.save(user)
             userAdapterMock.toCreateUserResponseData(createdUser, authenticationToken)
-            authenticationTokenServiceMock.generateToken(createdUser)
+            authenticationTokenServiceMock.generateToken(createdUser.email)
         }
 
         actual shouldBeEqualToComparingFields expected
