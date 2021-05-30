@@ -1,12 +1,12 @@
 package com.example.realworld.adapter.implementation
 
 import com.example.realworld.adapter.UserAdapter
-import com.example.realworld.annotation.RequestScopeComponent
+import com.example.realworld.annotation.PrototypeScopeComponent
 import com.example.realworld.dto.user.response.CreateUserResponseData
 import com.example.realworld.dto.user.response.LoginResponseData
 import com.example.realworld.entity.User
 
-@RequestScopeComponent
+@PrototypeScopeComponent
 class UserAdapterImpl : UserAdapter {
     override fun toCreateUserResponseData(user: User, authenticationToken: String): CreateUserResponseData {
         return CreateUserResponseData(

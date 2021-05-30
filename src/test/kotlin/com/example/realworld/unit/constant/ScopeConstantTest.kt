@@ -9,4 +9,9 @@ class ScopeConstantTest {
     fun `Request should have right value`() {
         ScopeConstant.Request shouldBe "request"
     }
+
+    @Test
+    fun `Prototype should have right value`() {
+        ScopeConstant.Prototype shouldBe "prototype"
+    }
 }

@@ -1,22 +1,22 @@
 package com.example.realworld.unit.handler
 
 import com.example.realworld.dto.ErrorResponse
-import com.example.realworld.exception.BusinessValidationException
-import com.example.realworld.handler.BusinessValidationExceptionHandler
+import com.example.realworld.handler.BadCredentialsExceptionHandler
 import com.example.realworld.util.builder.common.StringBuilder
 import io.kotest.matchers.collections.shouldContainAll
 import org.junit.jupiter.api.Test
+import org.springframework.security.authentication.BadCredentialsException
 
-class BusinessValidationExceptionHandlerTest {
-    private val handler: BusinessValidationExceptionHandler = BusinessValidationExceptionHandler()
+class BadCredentialsExceptionHandlerTest {
+    private val handler: BadCredentialsExceptionHandler = BadCredentialsExceptionHandler()
 
     @Test
     fun `handle should return message`() {
         // arrange
         val message = StringBuilder().build()
-        val exception = BusinessValidationException(message)
+        val exception = BadCredentialsException(message)
 
-        val expected = ErrorResponse.of(message)
+        val expected = ErrorResponse.of("Username or password invalid!")
 
         // act
         val actual = handler.handle(exception)
