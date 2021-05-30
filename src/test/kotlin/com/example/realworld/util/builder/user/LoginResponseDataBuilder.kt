@@ -1,24 +1,24 @@
 package com.example.realworld.util.builder.user
 
-import com.example.realworld.dto.user.response.CreateUserResponseData
+import com.example.realworld.dto.user.response.LoginResponseData
 import com.example.realworld.util.FakerPtBr
-import java.util.*
+import com.example.realworld.util.builder.common.StringBuilder
 
-class CreateUserResponseDataBuilder {
-    private val instance: CreateUserResponseData
+class LoginResponseDataBuilder {
+    private val instance: LoginResponseData
 
     init {
         val faker = FakerPtBr.generate()
-        instance = CreateUserResponseData(
+        instance = LoginResponseData(
             userName = faker.name().username(),
             email = faker.internet().emailAddress(),
-            token = UUID.randomUUID().toString(),
+            token = StringBuilder().build(),
             bio = faker.lorem().paragraph(),
             image = faker.internet().image()
         )
     }
 
-    fun build(): CreateUserResponseData {
+    fun build(): LoginResponseData {
         return instance
     }
 }
