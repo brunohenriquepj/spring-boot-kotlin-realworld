@@ -52,6 +52,11 @@ tasks.withType<KotlinCompile> {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty(
+        "junit.jupiter.execution.parallel.enabled",
+        System.getProperty("junit.jupiter.execution.parallel.enabled") ?: "false"
+    )
+
     jvmArgs("-Dspring.profiles.active=test")
     finalizedBy(tasks.jacocoTestReport)
 }
@@ -69,6 +74,6 @@ tasks.jacocoTestReport {
 }
 
 testlogger {
-    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA_PARALLEL
     showSimpleNames = true
 }

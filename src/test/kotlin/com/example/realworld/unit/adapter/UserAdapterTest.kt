@@ -3,6 +3,7 @@ package com.example.realworld.unit.adapter
 import com.example.realworld.adapter.UserAdapter
 import com.example.realworld.adapter.implementation.UserAdapterImpl
 import com.example.realworld.dto.user.response.CreateUserResponseData
+import com.example.realworld.dto.user.response.LoginResponseData
 import com.example.realworld.util.builder.common.StringBuilder
 import com.example.realworld.util.builder.user.UserBuilder
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields
@@ -31,5 +32,26 @@ class UserAdapterTest {
         // assert
         actual shouldBeEqualToComparingFields expected
 
+    }
+
+    @Test
+    fun `toLoginResponseData should return LoginResponseData`() {
+        // arrange
+        val user = UserBuilder().build()
+        val token = StringBuilder().build()
+
+        val expected = LoginResponseData(
+            userName = user.userName,
+            email = user.email,
+            token = token,
+            bio = user.bio,
+            image = user.image
+        )
+
+        // act
+        val actual = adapter.toLoginResponseData(user, token)
+
+        // assert
+        actual shouldBeEqualToComparingFields expected
     }
 }

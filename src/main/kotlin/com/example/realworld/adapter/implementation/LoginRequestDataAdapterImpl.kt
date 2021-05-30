@@ -7,7 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 @RequestScopeComponent
 class LoginRequestDataAdapterImpl : LoginRequestDataAdapter {
-    override fun toUsernamePasswordAuthenticationToken(request: LoginRequestData) : UsernamePasswordAuthenticationToken {
+    override fun toUsernamePasswordAuthenticationToken(request: LoginRequestData): UsernamePasswordAuthenticationToken {
         return UsernamePasswordAuthenticationToken(request.email, request.password)
     }
 }

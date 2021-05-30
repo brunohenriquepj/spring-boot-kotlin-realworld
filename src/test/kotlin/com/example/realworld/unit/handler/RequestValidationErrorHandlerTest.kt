@@ -1,7 +1,6 @@
 package com.example.realworld.unit.handler
 
 import com.example.realworld.dto.ErrorResponse
-import com.example.realworld.dto.ErrorResponseData
 import com.example.realworld.handler.RequestValidationErrorHandler
 import com.example.realworld.util.ListFactory
 import com.example.realworld.util.builder.FieldErrorBuilder
@@ -33,7 +32,7 @@ class RequestValidationErrorHandlerTest {
             "${it.field}: $message"
         }.toTypedArray()
 
-        val expected = ErrorResponse(ErrorResponseData(messages))
+        val expected = ErrorResponse.of(messages)
 
         // act
         val actual = handler.handle(exception)
@@ -42,7 +41,7 @@ class RequestValidationErrorHandlerTest {
         verify(exactly = 1) {
             errors.map { messageSourceMock.getMessage(it, LocaleContextHolder.getLocale()) }
         }
-        
+
         actual.errors.body.toList() shouldContainAll expected.errors.body.toList()
     }
 }

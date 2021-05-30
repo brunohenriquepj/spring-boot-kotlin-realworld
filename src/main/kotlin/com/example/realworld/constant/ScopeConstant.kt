@@ -1,5 +1,6 @@
 package com.example.realworld.constant
 
 object ScopeConstant {
-    const val Request: String = "request"
+    const val Request = "request"
+    const val Prototype = "prototype"
 }

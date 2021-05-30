@@ -15,6 +15,6 @@ class ExceptionHandler {
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception::class)
     fun handle(exception: Exception): ErrorResponse {
-        return ErrorResponse.of(arrayOf("An internal error occurred!"))
+        return ErrorResponse.of("An internal error occurred!")
     }
 }

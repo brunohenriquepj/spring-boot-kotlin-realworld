@@ -13,6 +13,6 @@ class BadCredentialsExceptionHandler {
     @ResponseStatus(code = HttpStatus.FORBIDDEN)
     @ExceptionHandler(BadCredentialsException::class)
     fun handle(exception: BadCredentialsException): ErrorResponse {
-        return ErrorResponse.of(arrayOf("Username or password invalid!"))
+        return ErrorResponse.of("Username or password invalid!")
     }
 }

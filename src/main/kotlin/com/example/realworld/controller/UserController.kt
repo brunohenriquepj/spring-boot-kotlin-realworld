@@ -16,7 +16,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/users")
-class UsersController(val userService: UserService) {
+class UserController(private val userService: UserService) {
     @PostMapping
     fun registration(
         @RequestBody @Valid request: CreateUserRequest,
