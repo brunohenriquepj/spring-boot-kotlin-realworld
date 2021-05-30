@@ -39,3 +39,6 @@ SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
 
 - Go to [swagger](http://localhost:8080/swagger-ui/index.html) or [actuator](http://localhost:8081/actuator)
 
+### Links:
+
+- [Spring Boot Test - Dynamic Property Sources](https://docs.spring.io/spring-framework/docs/current/reference/html/testing.html#testcontext-ctx-management-dynamic-property-sources)
