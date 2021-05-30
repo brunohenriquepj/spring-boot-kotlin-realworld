@@ -74,6 +74,6 @@ tasks.jacocoTestReport {
 }
 
 testlogger {
-    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA_PARALLEL
     showSimpleNames = true
 }

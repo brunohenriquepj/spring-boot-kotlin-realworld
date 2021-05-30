@@ -1,15 +1,14 @@
 package com.example.realworld.util.implementation
 
-import com.example.realworld.annotation.PrototypeScopeComponent
+import com.example.realworld.annotation.RequestScopeComponent
 import com.example.realworld.util.TokenUtil
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Service
 import java.util.*
 
-@Service
+@RequestScopeComponent
 class TokenUtilImpl(
     @field:Value("\${jwt.secret}") private val secret: String,
     @field:Value("\${jwt.expiration-milliseconds}") private val expiration: Long

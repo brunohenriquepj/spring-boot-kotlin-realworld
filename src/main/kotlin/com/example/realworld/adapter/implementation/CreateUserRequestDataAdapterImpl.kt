@@ -1,13 +1,12 @@
 package com.example.realworld.adapter.implementation
 
 import com.example.realworld.adapter.CreateUserRequestDataAdapter
-import com.example.realworld.annotation.PrototypeScopeComponent
+import com.example.realworld.annotation.RequestScopeComponent
 import com.example.realworld.dto.user.request.CreateUserRequestData
 import com.example.realworld.entity.User
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Service
 
-@Service
+@RequestScopeComponent
 class CreateUserRequestDataAdapterImpl(private val passwordEncoder: PasswordEncoder) : CreateUserRequestDataAdapter {
     override fun toUser(createUserRequestData: CreateUserRequestData): User {
         return User(
