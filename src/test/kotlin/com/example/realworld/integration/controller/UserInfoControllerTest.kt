@@ -30,7 +30,7 @@ class UserInfoControllerTest {
     lateinit var restTemplate: TestRestTemplate
 
     @Test
-    fun `registration should return user response when get current user`() {
+    fun `getCurrentUser should return user response when get current user`() {
         // arrange
         val user = UserBuilder().build()
 
@@ -62,7 +62,7 @@ class UserInfoControllerTest {
         "",
         "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJSZWFsV29ybGQgQXBpIiwic3ViIjoibWFyaWFoLnZpZWlyYUBsaXZlLmNvbSIsImlhdCI6MTYyMjM2NDE0MywiZXhwIjoxNjIyMzY0MjAzfQ"
     ])
-    fun `registration should return forbidden error when token is invalid`(token: String) {
+    fun `getCurrentUser should return forbidden error when token is invalid`(token: String) {
         // arrange
         val expected = ErrorResponse.of("Access denied!")
 
@@ -76,7 +76,7 @@ class UserInfoControllerTest {
     }
 
     @Test
-    fun `registration should return forbidden error when token is null`() {
+    fun `getCurrentUser should return forbidden error when token is null`() {
         // arrange
         val expected = ErrorResponse.of("Access denied!")
 

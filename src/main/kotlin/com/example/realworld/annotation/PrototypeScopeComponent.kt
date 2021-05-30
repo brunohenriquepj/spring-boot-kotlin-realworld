@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 
 @Target(AnnotationTarget.TYPE, AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) // TODO
 @Component
 annotation class PrototypeScopeComponent(
     @get:AliasFor(annotation = Scope::class)

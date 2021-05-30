@@ -5,8 +5,10 @@ import com.example.realworld.annotation.PrototypeScopeComponent
 import com.example.realworld.dto.user.request.CreateUserRequestData
 import com.example.realworld.entity.User
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@PrototypeScopeComponent
+@Component
 class CreateUserRequestDataAdapterImpl(private val passwordEncoder: PasswordEncoder) : CreateUserRequestDataAdapter {
     override fun toUser(createUserRequestData: CreateUserRequestData): User {
         return User(
