@@ -5,10 +5,9 @@ import com.example.realworld.annotation.PrototypeScopeComponent
 import com.example.realworld.dto.user.response.CreateUserResponseData
 import com.example.realworld.dto.user.response.LoginResponseData
 import com.example.realworld.entity.User
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
-@Component
+@Service
 class UserAdapterImpl : UserAdapter {
     override fun toCreateUserResponseData(user: User, authenticationToken: String): CreateUserResponseData {
         return CreateUserResponseData(
