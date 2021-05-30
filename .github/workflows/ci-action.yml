@@ -91,7 +91,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Test
-        run: ./gradlew test --tests com.example.realworld.unit.*
+        run: ./gradlew test --tests com.example.realworld.unit.* -Djunit.jupiter.execution.parallel.enabled=true
 
       - name: Prepare artifacts
         run: |
