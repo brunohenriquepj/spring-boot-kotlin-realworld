@@ -137,7 +137,7 @@ jobs:
 
       - name: Test
         run: ./gradlew test --tests com.example.realworld.integration.*
-        
+
       - name: Prepare artifacts
         run: |
           mkdir -p build/reports/jacoco/test/integration-test

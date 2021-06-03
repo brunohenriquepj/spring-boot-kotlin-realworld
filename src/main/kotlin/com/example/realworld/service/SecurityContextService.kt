@@ -5,5 +5,5 @@ import org.springframework.security.core.userdetails.UserDetails
 
 interface SecurityContextService {
     fun setAuthentication(authentication: Authentication)
-    fun getPrincipal():UserDetails
+    fun getPrincipal(): UserDetails
 }

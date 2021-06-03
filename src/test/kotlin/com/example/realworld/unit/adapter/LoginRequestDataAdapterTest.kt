@@ -14,7 +14,7 @@ class LoginRequestDataAdapterTest {
         // arrange
         val request = LoginRequestDataBuilder().build()
 
-        val expected =  UsernamePasswordAuthenticationToken(request.email, request.password)
+        val expected = UsernamePasswordAuthenticationToken(request.email, request.password)
 
         // act
         val actual = adapter.toUsernamePasswordAuthenticationToken(request)

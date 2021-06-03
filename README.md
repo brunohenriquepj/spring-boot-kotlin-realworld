@@ -1,4 +1,5 @@
 # [RealWorld](https://github.com/gothinkster/realworld) implementation using Spring Boot with Kotlin
+
 # In progress... 🏗️
 
 [![CI](https://github.com/brunohenriquepj/spring-boot-kotlin-realworld/actions/workflows/ci-action.yml/badge.svg)](https://github.com/brunohenriquepj/spring-boot-kotlin-realworld/actions/workflows/ci-action.yml)
@@ -18,7 +19,7 @@ sdk env install
 ## Build
 
 ```shell
-./gradlew build --exclude-task test 
+./gradlew build --exclude-task test
 ```
 
 ---
