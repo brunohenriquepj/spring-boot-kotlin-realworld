@@ -24,7 +24,7 @@ class ErrorResponseTest {
     @Test
     fun `of should set response data messages`() {
         // arrange
-        val messages = ListFactory.generate({StringBuilder().build()})
+        val messages = ListFactory.generate({ StringBuilder().build() })
 
         // act
         val actual = ErrorResponse.of(messages.toTypedArray())

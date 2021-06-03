@@ -4,7 +4,7 @@ import com.example.realworld.dto.user.request.LoginRequestData
 import com.example.realworld.util.FakerPtBr
 
 class LoginRequestDataBuilder {
-    private val instance : LoginRequestData
+    private val instance: LoginRequestData
 
     init {
         val faker = FakerPtBr.generate()

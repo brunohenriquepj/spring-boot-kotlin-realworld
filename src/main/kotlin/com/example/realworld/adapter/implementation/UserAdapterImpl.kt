@@ -5,8 +5,10 @@ import com.example.realworld.annotation.RequestScopeComponent
 import com.example.realworld.dto.user.response.CreateUserResponseData
 import com.example.realworld.dto.user.response.LoginResponseData
 import com.example.realworld.entity.User
+import org.springframework.stereotype.Component
 
-@RequestScopeComponent
+// @RequestScopeComponent
+@Component
 class UserAdapterImpl : UserAdapter {
     override fun toCreateUserResponseData(user: User, authenticationToken: String): CreateUserResponseData {
         return CreateUserResponseData(

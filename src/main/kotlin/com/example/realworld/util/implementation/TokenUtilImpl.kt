@@ -6,12 +6,14 @@ import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 import java.util.*
 
-@RequestScopeComponent
+// @RequestScopeComponent
+@Component
 class TokenUtilImpl(
-    @field:Value("\${jwt.secret}") private val secret: String,
-    @field:Value("\${jwt.expiration-milliseconds}") private val expiration: Long
+    @Value("\${jwt.secret}") private val secret: String,
+    @Value("\${jwt.expiration-milliseconds}") private val expiration: Long
 ) : TokenUtil {
     override fun generateToken(userEmail: String): String {
         val currentDate = Date()

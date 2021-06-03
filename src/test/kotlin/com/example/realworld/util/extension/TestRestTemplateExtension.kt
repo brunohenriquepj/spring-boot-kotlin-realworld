@@ -1,4 +1,4 @@
-package com.example.realworld.util
+package com.example.realworld.util.extension
 
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpHeaders
