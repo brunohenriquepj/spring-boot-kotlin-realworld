@@ -2,6 +2,7 @@ package com.example.realworld.entity
 
 import org.hibernate.validator.constraints.Length
 import javax.persistence.*
+import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
 @Entity
@@ -11,6 +12,7 @@ class User(email: String, userName: String, password: String, bio: String? = nul
     private val id: Long = 0
 
     @NotBlank
+    @Email
     @Column(nullable = false, unique = true)
     var email: String = email
         private set

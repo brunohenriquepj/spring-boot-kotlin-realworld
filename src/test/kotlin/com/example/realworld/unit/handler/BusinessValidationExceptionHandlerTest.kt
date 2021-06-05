@@ -1,7 +1,6 @@
 package com.example.realworld.unit.handler
 
 import com.example.realworld.dto.ErrorResponse
-import com.example.realworld.dto.ErrorResponseData
 import com.example.realworld.exception.BusinessValidationException
 import com.example.realworld.handler.BusinessValidationExceptionHandler
 import com.example.realworld.util.builder.common.StringBuilder
@@ -17,7 +16,7 @@ class BusinessValidationExceptionHandlerTest {
         val message = StringBuilder().build()
         val exception = BusinessValidationException(message)
 
-        val expected = ErrorResponse(ErrorResponseData(arrayOf(message)))
+        val expected = ErrorResponse.of(message)
 
         // act
         val actual = handler.handle(exception)

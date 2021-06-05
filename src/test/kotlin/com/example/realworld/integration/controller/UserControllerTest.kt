@@ -3,6 +3,7 @@ package com.example.realworld.integration.controller
 import com.example.realworld.dto.user.request.CreateUserRequest
 import com.example.realworld.dto.user.response.CreateUserResponse
 import com.example.realworld.dto.user.response.CreateUserResponseData
+import com.example.realworld.util.annotation.SpringBootIntegrationTest
 import com.example.realworld.util.builder.user.CreateUserRequestDataBuilder
 import io.kotest.matchers.equality.shouldBeEqualToComparingFieldsExcept
 import io.kotest.matchers.shouldBe
@@ -11,43 +12,21 @@ import io.kotest.matchers.string.beEmpty
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Import
+import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
-import org.springframework.test.annotation.DirtiesContext
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.MySQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
+import org.springframework.web.context.request.RequestContextListener
 
-@Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class UsersControllerTest {
+
+@SpringBootIntegrationTest
+class UserControllerTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
-
-    companion object {
-        @JvmStatic
-        @DynamicPropertySource
-        fun registerProperties(propertyRegistry: DynamicPropertyRegistry) {
-            propertyRegistry.add("spring.datasource.url", mySQLContainer::getJdbcUrl)
-            propertyRegistry.add("spring.datasource.username", mySQLContainer::getUsername)
-            propertyRegistry.add("spring.datasource.password", mySQLContainer::getPassword)
-        }
-
-        @JvmStatic
-        @Container
-        private val mySQLContainer = MySQLContainer<Nothing>("mysql:8")
-            .apply {
-                withDatabaseName("testDb")
-                withUsername("test")
-                withPassword("password")
-                start()
-            }
-    }
 
     @Test
     fun `registration should return user response when create user`() {
@@ -72,4 +51,3 @@ class UsersControllerTest {
         response.body!!.user.token.trim() shouldNot beEmpty()
     }
 }
-

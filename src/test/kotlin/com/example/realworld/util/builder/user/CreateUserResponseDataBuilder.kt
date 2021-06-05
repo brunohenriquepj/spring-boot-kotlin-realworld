@@ -14,7 +14,7 @@ class CreateUserResponseDataBuilder {
             email = faker.internet().emailAddress(),
             token = UUID.randomUUID().toString(),
             bio = faker.lorem().paragraph(),
-            image = faker.internet().password()
+            image = faker.internet().image()
         )
     }
 

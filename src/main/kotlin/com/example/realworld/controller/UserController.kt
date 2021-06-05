@@ -1,7 +1,9 @@
 package com.example.realworld.controller
 
 import com.example.realworld.dto.user.request.CreateUserRequest
+import com.example.realworld.dto.user.request.LoginRequest
 import com.example.realworld.dto.user.response.CreateUserResponse
+import com.example.realworld.dto.user.response.LoginResponse
 import com.example.realworld.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -14,7 +16,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/users")
-class UsersController(val userService: UserService) {
+class UserController(private val userService: UserService) {
     @PostMapping
     fun registration(
         @RequestBody @Valid request: CreateUserRequest,
@@ -24,5 +26,11 @@ class UsersController(val userService: UserService) {
 
         val uri = uriComponentsBuilder.path("/api/users").build().toUri()
         return ResponseEntity.created(uri).body(response)
+    }
+
+    @PostMapping("/login")
+    fun login(@RequestBody @Valid request: LoginRequest): LoginResponse {
+        val response = this.userService.login(request.user!!)
+        return LoginResponse(response)
     }
 }

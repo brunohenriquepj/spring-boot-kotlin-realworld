@@ -1,7 +1,6 @@
 package com.example.realworld.unit.handler
 
 import com.example.realworld.dto.ErrorResponse
-import com.example.realworld.dto.ErrorResponseData
 import com.example.realworld.handler.ExceptionHandler
 import com.example.realworld.util.builder.common.StringBuilder
 import io.kotest.matchers.collections.shouldContainAll
@@ -16,7 +15,7 @@ class ExceptionHandlerTest {
         val message = StringBuilder().build()
         val exception = Exception(message)
 
-        val expected = ErrorResponse(ErrorResponseData(arrayOf("An internal error occurred!")))
+        val expected = ErrorResponse.of("An internal error occurred!")
 
         // act
         val actual = handler.handle(exception)

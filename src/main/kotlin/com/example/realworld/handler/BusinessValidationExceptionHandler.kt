@@ -13,6 +13,6 @@ class BusinessValidationExceptionHandler {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessValidationException::class)
     fun handle(exception: BusinessValidationException): ErrorResponse {
-        return ErrorResponse.of(arrayOf(exception.message))
+        return ErrorResponse.of(exception.message)
     }
 }

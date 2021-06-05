@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.4.5"
+    id("org.springframework.boot") version "2.5.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.5.10"
     kotlin("plugin.spring") version "1.4.32"
-    kotlin("plugin.jpa") version "1.4.32"
+    kotlin("plugin.jpa") version "1.5.10"
     jacoco
     id("com.adarshr.test-logger") version "3.0.0"
 }
@@ -35,7 +35,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
-    testImplementation("io.kotest:kotest-assertions-core:4.5.0")
+    testImplementation("io.kotest:kotest-assertions-core:4.6.0")
     testImplementation("org.testcontainers:testcontainers:1.15.3")
     testImplementation("org.testcontainers:junit-jupiter:1.15.3")
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.15.3"))
@@ -52,6 +52,11 @@ tasks.withType<KotlinCompile> {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty(
+        "junit.jupiter.execution.parallel.enabled",
+        System.getProperty("junit.jupiter.execution.parallel.enabled") ?: "false"
+    )
+
     jvmArgs("-Dspring.profiles.active=test")
     finalizedBy(tasks.jacocoTestReport)
 }
@@ -69,6 +74,6 @@ tasks.jacocoTestReport {
 }
 
 testlogger {
-    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA_PARALLEL
     showSimpleNames = true
 }
