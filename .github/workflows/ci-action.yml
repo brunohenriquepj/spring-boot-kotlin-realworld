@@ -161,7 +161,11 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Run api
-        run: SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
+        run: |
+          SPRING_PROFILES_ACTIVE=local java -jar build/libs/realworld-0.0.0.jar &
+          sleep 20
+          echo "pronto!!"
+          fuser -k 8080/tcp
     
 #       - name: Test
 #         uses: matt-ball/newman-action@v0.2.4
