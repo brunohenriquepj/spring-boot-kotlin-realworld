@@ -149,6 +149,25 @@ jobs:
           name: integration-test-coverage-report
           path: build/reports/jacoco/test/integration-test
           if-no-files-found: error
+          
+  postman-collection-test:
+    name: Execute postman collection tests
+    runs-on: ubuntu-latest
+    needs:
+      - build
+
+    steps:
+      - name: Fetch sources
+        uses: actions/checkout@v2
+        
+      - name: Run api
+        run: SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
+    
+      - name: Test
+        uses: matt-ball/newman-action@v0.2.4
+        continue-on-error: true
+        with:
+          collection: https://github.com/gothinkster/realworld/blob/master/api/Conduit.postman_collection.json
 
   codecov:
     name: Publish code coverage to codecov
