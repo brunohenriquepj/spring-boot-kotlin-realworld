@@ -173,7 +173,7 @@ jobs:
         uses: matt-ball/newman-action@v0.2.4
         continue-on-error: true
         with:
-          postmanApiKey: ${{ secrets.POSTMAN_API_KEY }}
+          apiKey: ${{ secrets.POSTMAN_API_KEY }}
           collection: 1750981-6744a444-d74f-468d-84b5-3ff659c9a436
           environment: 1750981-c99830c4-d0fc-446a-a1af-30852846f28f
 
