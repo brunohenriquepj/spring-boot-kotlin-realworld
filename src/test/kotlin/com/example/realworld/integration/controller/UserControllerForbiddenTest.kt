@@ -17,8 +17,8 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
-@WebMvcIntegrationTest(controllers = [UserInfoControllerTest::class])
-class UserInfoControllerForbiddenTest {
+@WebMvcIntegrationTest(controllers = [UserControllerTest::class])
+class UserControllerForbiddenTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 

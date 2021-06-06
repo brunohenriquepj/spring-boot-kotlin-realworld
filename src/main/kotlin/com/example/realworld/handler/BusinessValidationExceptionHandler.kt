@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class BusinessValidationExceptionHandler {
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(BusinessValidationException::class)
     fun handle(exception: BusinessValidationException): ErrorResponse {
         return ErrorResponse.of(exception.message)

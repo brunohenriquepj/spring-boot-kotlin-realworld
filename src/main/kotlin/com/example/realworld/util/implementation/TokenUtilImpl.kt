@@ -1,15 +1,13 @@
 package com.example.realworld.util.implementation
 
-import com.example.realworld.annotation.RequestScopeComponent
 import com.example.realworld.util.TokenUtil
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.Date
 
-// @RequestScopeComponent
 @Component
 class TokenUtilImpl(
     @Value("\${jwt.secret}") private val secret: String,

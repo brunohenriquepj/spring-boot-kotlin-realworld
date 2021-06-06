@@ -33,7 +33,6 @@ class CreateUserRequestDataAdapterTest {
 
         // act
         val actual = adapter.toUser(requestData)
-        println(adapter)
 
         // assert
         verify(exactly = 1) {

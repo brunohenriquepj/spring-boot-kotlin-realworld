@@ -8,4 +8,4 @@ class LoginResponseData(
     val image: String? = null
 )
 
-class LoginResponse(val user: LoginResponseData = LoginResponseData())
+class LoginResponse(val user: LoginResponseData? = null)
