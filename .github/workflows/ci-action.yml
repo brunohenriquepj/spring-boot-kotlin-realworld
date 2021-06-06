@@ -162,21 +162,17 @@ jobs:
         with:
           name: package
           path: build/libs
-        
+
       - name: Run api
         run: |
-          ls -R
-          sleep 20
           SPRING_PROFILES_ACTIVE=local java -jar build/libs/realworld-0.0.0.jar &
           sleep 20
-          echo "pronto!!"
-          fuser -k 8080/tcp
-    
-#       - name: Test
-#         uses: matt-ball/newman-action@v0.2.4
-#         continue-on-error: true
-#         with:
-#           collection: https://github.com/gothinkster/realworld/blob/master/api/Conduit.postman_collection.json
+
+      - name: Test
+        uses: matt-ball/newman-action@v0.2.4
+        continue-on-error: true
+        with:
+          collection: https://github.com/gothinkster/realworld/blob/master/api/Conduit.postman_collection.json
 
 #   codecov:
 #     name: Publish code coverage to codecov
