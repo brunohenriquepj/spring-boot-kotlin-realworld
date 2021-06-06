@@ -1,15 +1,17 @@
 package com.example.realworld.entity
 
 import org.hibernate.validator.constraints.Length
+import org.hibernate.validator.constraints.URL
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
 @Entity
-class User(email: String, userName: String, password: String, bio: String? = null, image: String? = null) {
+class User(email: String, userName: String, password: String, bio: String? = null, image: String? = null, id: Long = 0) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long = 0
+    var id: Long = id
+        private set
 
     @NotBlank
     @Email
@@ -27,9 +29,11 @@ class User(email: String, userName: String, password: String, bio: String? = nul
     var password: String = password
         private set
 
+    @Length(max = 250)
     var bio: String? = bio
         private set
 
+    @URL
     var image: String? = image
         private set
 }

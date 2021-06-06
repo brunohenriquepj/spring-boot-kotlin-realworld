@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class BadCredentialsExceptionHandler {
 
-    @ResponseStatus(code = HttpStatus.FORBIDDEN)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException::class)
     fun handle(exception: BadCredentialsException): ErrorResponse {
         return ErrorResponse.of("Username or password invalid!")

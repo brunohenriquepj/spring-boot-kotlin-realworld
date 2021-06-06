@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class RequestValidationErrorHandler(val messageSource: MessageSource) {
+class RequestValidationErrorHandler(private val messageSource: MessageSource) {
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handle(exception: MethodArgumentNotValidException): ErrorResponse {
         val errors = exception.bindingResult.fieldErrors
