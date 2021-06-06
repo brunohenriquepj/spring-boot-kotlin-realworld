@@ -165,7 +165,7 @@ jobs:
 
       - name: Run api
         run: |
-          SPRING_PROFILES_ACTIVE=local nohup java -jar build/libs/realworld-*.jar
+          SPRING_PROFILES_ACTIVE=local nohup java -jar build/libs/realworld-*.jar &
           sleep 20
           echo "Api started!!"
 
