@@ -162,7 +162,8 @@ jobs:
         
       - name: Run api
         run: |
-          ls -a build/libs
+          ls -R
+          sleep 20
           SPRING_PROFILES_ACTIVE=local java -jar build/libs/realworld-0.0.0.jar &
           sleep 20
           echo "pronto!!"
