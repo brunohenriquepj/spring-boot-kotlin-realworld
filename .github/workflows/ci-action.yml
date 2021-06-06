@@ -165,14 +165,17 @@ jobs:
 
       - name: Run api
         run: |
-          SPRING_PROFILES_ACTIVE=local java -jar build/libs/realworld-0.0.0.jar &
+          SPRING_PROFILES_ACTIVE=local nohup java -jar build/libs/realworld-0.0.0.jar &
           sleep 20
+          echo "Api started!!"
 
       - name: Test
         uses: matt-ball/newman-action@v0.2.4
-        continue-on-error: false
+        continue-on-error: true
         with:
-          collection: https://github.com/gothinkster/realworld/blob/master/api/Conduit.postman_collection.json
+          postmanApiKey: ${{ secrets.POSTMAN_API_KEY }}
+          collection: 1750981-6744a444-d74f-468d-84b5-3ff659c9a436
+          environment: 1750981-c99830c4-d0fc-446a-a1af-30852846f28f
 
 #   codecov:
 #     name: Publish code coverage to codecov
