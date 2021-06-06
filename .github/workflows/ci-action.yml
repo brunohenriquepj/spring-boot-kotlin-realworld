@@ -170,7 +170,7 @@ jobs:
 
       - name: Test
         uses: matt-ball/newman-action@v0.2.4
-        continue-on-error: true
+        continue-on-error: false
         with:
           collection: https://github.com/gothinkster/realworld/blob/master/api/Conduit.postman_collection.json
 
