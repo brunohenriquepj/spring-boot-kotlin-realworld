@@ -12,7 +12,7 @@ on:
 jobs:
   gradle-validation:
     name: Validate Gradle Wrapper
-    runs-on: ubuntu-latest
+    runs-on: debian:buster-slim
     steps:
       - name: Fetch sources
         uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
 
   build:
     name: Build app
-    runs-on: ubuntu-latest
+    runs-on: debian:buster-slim
     needs:
       - gradle-validation
 
@@ -62,7 +62,7 @@ jobs:
 
   unit-test:
     name: Execute unit tests
-    runs-on: ubuntu-latest
+    runs-on: debian:buster-slim
     needs:
       - build
 
@@ -107,7 +107,7 @@ jobs:
 
   integration-test:
     name: Execute integration tests
-    runs-on: ubuntu-latest
+    runs-on: debian:buster-slim
     needs:
       - build
 
@@ -152,7 +152,7 @@ jobs:
 
   codecov:
     name: Publish code coverage to codecov
-    runs-on: ubuntu-latest
+    runs-on: debian:buster-slim
     needs:
       - unit-test
       - integration-test
@@ -185,7 +185,7 @@ jobs:
 
   sonarcloud-scan:
     name: Publish metrics to Sonar Cloud
-    runs-on: ubuntu-latest
+    runs-on: debian:buster-slim
     needs:
       - unit-test
       - integration-test
