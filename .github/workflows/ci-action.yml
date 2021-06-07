@@ -176,6 +176,14 @@ jobs:
           apiKey: ${{ secrets.POSTMAN_API_KEY }}
           collection: 1750981-6744a444-d74f-468d-84b5-3ff659c9a436
           environment: 1750981-c99830c4-d0fc-446a-a1af-30852846f28f
+          reporters: cli,json
+          
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: postman-collection-test-coverage-report
+          path: newman
+          if-no-files-found: error
 
   codecov:
     name: Publish code coverage to codecov
@@ -199,12 +207,18 @@ jobs:
         with:
           name: integration-test-coverage-report
           path: build/reports/jacoco/test/integration-test
+          
+      - name: Download collection test coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: postman-collection-test-coverage-report
+          path: newman
 
-      - name: Publish code coverage
+      - name: Publish coverage reports
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: build/reports/jacoco/test/unit-test/jacocoTestReport.xml,build/reports/jacoco/test/integration-test/jacocoTestReport.xml
+          files: build/reports/jacoco/test/unit-test/jacocoTestReport.xml,build/reports/jacoco/test/integration-test/jacocoTestReport.xml,newman/newman-run-report-*.json
           flags: unittest
           name: codecov-umbrella
           fail_ci_if_error: true
