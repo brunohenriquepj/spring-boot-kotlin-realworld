@@ -33,7 +33,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.mockk:mockk:1.11.0")
+    testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
     testImplementation("io.kotest:kotest-assertions-core:4.6.0")
     testImplementation("org.testcontainers:testcontainers:1.15.3")
