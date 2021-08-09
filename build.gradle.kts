@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.4.6"
+    id("org.springframework.boot") version "2.5.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.4.32"
-    kotlin("plugin.spring") version "1.4.32"
-    kotlin("plugin.jpa") version "1.4.32"
+    kotlin("jvm") version "1.5.21"
+    kotlin("plugin.spring") version "1.5.21"
+    kotlin("plugin.jpa") version "1.5.21"
     jacoco
     id("com.adarshr.test-logger") version "3.0.0"
 }
@@ -35,8 +35,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
-    testImplementation("io.kotest:kotest-assertions-core:4.6.0")
-    testImplementation("org.testcontainers:testcontainers:1.15.3")
+    testImplementation("io.kotest:kotest-assertions-core:4.6.1")
+    testImplementation("org.testcontainers:testcontainers:1.16.0")
     testImplementation("org.testcontainers:junit-jupiter:1.15.3")
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.15.3"))
     testImplementation("org.testcontainers:mysql")
@@ -59,6 +59,10 @@ tasks.test {
 
     jvmArgs("-Dspring.profiles.active=test")
     finalizedBy(tasks.jacocoTestReport)
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
 
 tasks.jacocoTestReport {
