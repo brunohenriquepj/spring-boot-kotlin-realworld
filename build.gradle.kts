@@ -36,7 +36,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
     testImplementation("io.kotest:kotest-assertions-core:4.6.1")
-    testImplementation("org.testcontainers:testcontainers:1.15.3")
+    testImplementation("org.testcontainers:testcontainers:1.16.0")
     testImplementation("org.testcontainers:junit-jupiter:1.15.3")
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.16.0"))
     testImplementation("org.testcontainers:mysql")
