@@ -174,7 +174,7 @@ jobs:
           path: build/reports/jacoco/test/integration-test
 
       - name: Publish code coverage
-        uses: codecov/codecov-action@v2.0.2
+        uses: codecov/codecov-action@v2.0.3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/reports/jacoco/test/unit-test/jacocoTestReport.xml,build/reports/jacoco/test/integration-test/jacocoTestReport.xml
