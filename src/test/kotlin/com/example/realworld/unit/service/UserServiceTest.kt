@@ -2,8 +2,10 @@ package com.example.realworld.unit.service
 
 import com.example.realworld.adapter.CreateUserRequestDataAdapter
 import com.example.realworld.adapter.LoginRequestDataAdapter
+import com.example.realworld.adapter.UpdateUserRequestDataAdapter
 import com.example.realworld.adapter.UserAdapter
 import com.example.realworld.dto.user.response.GetCurrentUserResponseData
+import com.example.realworld.dto.user.response.UpdateUserResponseData
 import com.example.realworld.exception.BusinessValidationException
 import com.example.realworld.repository.UserRepository
 import com.example.realworld.service.SecurityContextService
@@ -15,9 +17,7 @@ import com.example.realworld.util.builder.user.*
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.junit.jupiter.api.Test
 import org.springframework.security.authentication.AuthenticationManager
 
@@ -29,6 +29,7 @@ class UserServiceTest {
     private val authenticationManagerMock: AuthenticationManager = mockk()
     private val loginRequestDataAdapterMock: LoginRequestDataAdapter = mockk()
     private val securityContextServiceMock: SecurityContextService = mockk()
+    private val updateUserRequestDataAdapterMock: UpdateUserRequestDataAdapter = mockk()
     private val service: UserService
 
     init {
@@ -39,7 +40,8 @@ class UserServiceTest {
             createUserRequestDataAdapterMock,
             userAdapterMock,
             loginRequestDataAdapterMock,
-            securityContextServiceMock
+            securityContextServiceMock,
+            updateUserRequestDataAdapterMock
         )
     }
 
@@ -114,7 +116,7 @@ class UserServiceTest {
         every { authenticationManagerMock.authenticate(authenticationData) } returns null
 
         val user = UserBuilder().build()
-        every { userRepositoryMock.findByEmail(request.email) } returns user
+        every { userRepositoryMock.getByEmail(request.email) } returns user
 
         val authenticationToken = StringBuilder().build()
         every { tokenUtilMock.generateToken(user.email) } returns authenticationToken
@@ -129,7 +131,7 @@ class UserServiceTest {
         verify(exactly = 1) {
             loginRequestDataAdapterMock.toUsernamePasswordAuthenticationToken(request)
             authenticationManagerMock.authenticate(authenticationData)
-            userRepositoryMock.findByEmail(request.email)
+            userRepositoryMock.getByEmail(request.email)
             tokenUtilMock.generateToken(user.email)
             userAdapterMock.toLoginResponseData(user, authenticationToken)
         }
@@ -138,13 +140,13 @@ class UserServiceTest {
     }
 
     @Test
-    fun `getCurrentUser return GetCurrentUserResponseData`() {
+    fun `getCurrentUser should return GetCurrentUserResponseData`() {
         // arrange
         val userDetails = UserDetailsBuilder().build()
         every { securityContextServiceMock.getPrincipal() } returns userDetails
 
         val user = UserBuilder().build()
-        every { userRepositoryMock.findByEmail(userDetails.username) } returns user
+        every { userRepositoryMock.getByEmail(userDetails.username) } returns user
 
         val expected = GetCurrentUserResponseData(user.userName, user.email, user.bio, user.image)
 
@@ -152,6 +154,145 @@ class UserServiceTest {
         val actual = service.getCurrentUser()
 
         // assert
+        verify(exactly = 1) {
+            securityContextServiceMock.getPrincipal()
+            userRepositoryMock.getByEmail(userDetails.username)
+        }
+
+        actual shouldBe expected
+    }
+
+    @Test
+    fun `update should update and authenticate user and return UpdateUserResponseData`() {
+        // arrange
+        val request = UpdateUserRequestDataBuilder().build()
+
+        val userDetails = UserDetailsBuilder().build()
+        every { securityContextServiceMock.getPrincipal() } returns userDetails
+
+        val authenticatedUser = UserBuilder().build()
+        every { userRepositoryMock.getByEmail(userDetails.username) } returns authenticatedUser
+
+        val existentUser = UserBuilder().build()
+        every { userRepositoryMock.findByEmailOrUserName(request.email, request.userName) } returns existentUser
+
+        val updatedUser = UserBuilder().build()
+        every { updateUserRequestDataAdapterMock.toUser(request) } returns updatedUser
+
+        every { userRepositoryMock.update(authenticatedUser.id, updatedUser) } just runs
+
+        val authenticationToken = StringBuilder().build()
+        every { tokenUtilMock.generateToken(updatedUser.email) } returns authenticationToken
+
+        val response = UpdateUserResponseDataBuilder().build()
+        every { userAdapterMock.toUpdateUserResponseData(updatedUser, authenticationToken) } returns response
+
+        val expected = UpdateUserResponseData(
+            userName = response.userName,
+            email = response.email,
+            bio = response.bio,
+            image = response.image,
+            token = response.token
+        )
+
+        // act
+        val actual = service.update(request)
+
+        // assert
+        verify(exactly = 1) {
+            securityContextServiceMock.getPrincipal()
+            userRepositoryMock.getByEmail(userDetails.username)
+            userRepositoryMock.findByEmailOrUserName(request.email, request.userName)
+            updateUserRequestDataAdapterMock.toUser(request)
+            userRepositoryMock.update(authenticatedUser.id, updatedUser)
+            tokenUtilMock.generateToken(updatedUser.email)
+            userAdapterMock.toUpdateUserResponseData(updatedUser, authenticationToken)
+        }
+
+        actual shouldBe expected
+    }
+
+    @Test
+    fun `update should throws exception when exists an user with request email`() {
+        // arrange
+        val request = UpdateUserRequestDataBuilder().build()
+
+        val userDetails = UserDetailsBuilder().build()
+        every { securityContextServiceMock.getPrincipal() } returns userDetails
+
+        val authenticatedUser = UserBuilder().build()
+        every { userRepositoryMock.getByEmail(userDetails.username) } returns authenticatedUser
+
+        val existentUser = UserBuilder()
+            .apply {
+                email = request.email
+            }
+            .build()
+        every { userRepositoryMock.findByEmailOrUserName(request.email, request.userName) } returns existentUser
+
+        val expected = BusinessValidationException("Email already exists!")
+
+        // act
+        val actual = shouldThrowExactly<BusinessValidationException> {
+            service.update(request)
+        }
+
+        // assert
+        verify(exactly = 1) {
+            securityContextServiceMock.getPrincipal()
+            userRepositoryMock.getByEmail(userDetails.username)
+            userRepositoryMock.findByEmailOrUserName(request.email, request.userName)
+        }
+
+        verify(exactly = 0) {
+            updateUserRequestDataAdapterMock.toUser(any())
+            userRepositoryMock.update(any(), any())
+            tokenUtilMock.generateToken(any())
+            userAdapterMock.toUpdateUserResponseData(any(), any())
+        }
+
+        actual shouldBe expected
+    }
+
+    @Test
+    fun `update should throws exception when exists an user with request userName`() {
+        // arrange
+        val request = UpdateUserRequestDataBuilder().build()
+
+        val userDetails = UserDetailsBuilder().build()
+        every { securityContextServiceMock.getPrincipal() } returns userDetails
+
+        val authenticatedUser = UserBuilder().build()
+        every { userRepositoryMock.getByEmail(userDetails.username) } returns authenticatedUser
+
+        val existentUser = UserBuilder()
+            .apply {
+                userName = request.userName
+            }
+            .build()
+        every { userRepositoryMock.findByEmailOrUserName(request.email, request.userName) } returns existentUser
+
+        val expected = BusinessValidationException("Username already exists!")
+
+        // act
+        val actual = shouldThrowExactly<BusinessValidationException> {
+            service.update(request)
+        }
+
+        // assert
+        verify(exactly = 1) {
+            securityContextServiceMock.getPrincipal()
+            userRepositoryMock.getByEmail(userDetails.username)
+            userRepositoryMock.findByEmailOrUserName(request.email, request.userName)
+        }
+
+        verify(exactly = 0) {
+            updateUserRequestDataAdapterMock.toUser(any())
+            userRepositoryMock.update(any(), any())
+            tokenUtilMock.generateToken(any())
+            userAdapterMock.toUpdateUserResponseData(any(), any())
+        }
+
         actual shouldBe expected
     }
 }

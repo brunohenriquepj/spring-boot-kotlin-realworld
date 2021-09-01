@@ -214,8 +214,8 @@ jobs:
           name: postman-collection-test-coverage-report
           path: newman
 
-      - name: Publish coverage reports
-        uses: codecov/codecov-action@v1
+      - name: Publish code coverage
+        uses: codecov/codecov-action@v2.0.3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/reports/jacoco/test/unit-test/jacocoTestReport.xml,build/reports/jacoco/test/integration-test/jacocoTestReport.xml,newman/newman-run-report-*.json

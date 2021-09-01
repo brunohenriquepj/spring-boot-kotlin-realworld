@@ -1,6 +1,6 @@
 package com.example.realworld.dto.user.response
 
-data class CreateUserResponse(val user: CreateUserResponseData = CreateUserResponseData())
+data class CreateUserResponse(val user: CreateUserResponseData? = null)
 
 data class CreateUserResponseData(
     val userName: String = "",

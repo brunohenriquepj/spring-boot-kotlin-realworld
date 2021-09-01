@@ -1,5 +1,7 @@
 package com.example.realworld.service
 
+import com.example.realworld.dto.user.request.UpdateUserRequestData
+import com.example.realworld.dto.user.response.UpdateUserResponseData
 import com.example.realworld.dto.user.request.CreateUserRequestData
 import com.example.realworld.dto.user.request.LoginRequestData
 import com.example.realworld.dto.user.response.CreateUserResponseData
@@ -10,4 +12,5 @@ interface UserService {
     fun create(request: CreateUserRequestData): CreateUserResponseData
     fun login(request: LoginRequestData): LoginResponseData
     fun getCurrentUser(): GetCurrentUserResponseData
+    fun update(request: UpdateUserRequestData): UpdateUserResponseData
 }

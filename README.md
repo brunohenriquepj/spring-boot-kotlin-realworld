@@ -10,7 +10,7 @@
 
 ## Setup Java with [SDKMAN!](https://github.com/sdkman/sdkman-cli)
 
-```shell
+```console
 sdk env install
 ```
 
@@ -18,7 +18,7 @@ sdk env install
 
 ## Build
 
-```shell
+```console
 ./gradlew build --exclude-task test
 ```
 
@@ -26,7 +26,7 @@ sdk env install
 
 ## Test
 
-```shell
+```console
 ./gradlew test --stacktrace
 ```
 
@@ -34,7 +34,7 @@ sdk env install
 
 ## Run api
 
-```shel
+```console
 SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
 ```
 
