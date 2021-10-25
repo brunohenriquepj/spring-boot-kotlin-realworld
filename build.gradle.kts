@@ -38,7 +38,7 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:4.6.3")
     testImplementation("org.testcontainers:testcontainers:1.16.0")
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.16.0"))
-    testImplementation("org.testcontainers:junit-jupiter:1.16.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.16.2")
     testImplementation("org.testcontainers:mysql")
     testRuntimeOnly("mysql:mysql-connector-java")
 }
