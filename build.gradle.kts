@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.5.5"
+    id("org.springframework.boot") version "2.6.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
-    kotlin("plugin.jpa") version "1.5.31"
+    kotlin("plugin.jpa") version "1.6.10"
     jacoco
     id("com.adarshr.test-logger") version "3.1.0"
 }
@@ -33,7 +33,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("io.mockk:mockk:1.12.2")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
     testImplementation("io.kotest:kotest-assertions-core:4.6.3")
     testImplementation("org.testcontainers:testcontainers:1.16.2")
