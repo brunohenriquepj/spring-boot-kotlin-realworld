@@ -11,6 +11,7 @@ updates:
       interval: "weekly"
     reviewers:
       - "brunohenriquepj"
+    target-branch: "updates"
 
   - package-ecosystem: "github-actions"
     directory: "/"
