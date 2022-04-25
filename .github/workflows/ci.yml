@@ -178,13 +178,13 @@ jobs:
         uses: actions/checkout@v3.0.2
 
       - name: Download unit test coverage report
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v3.0.0
         with:
           name: unit-test-coverage-report
           path: build/reports/jacoco/test/unit-test
 
       - name: Download integration test coverage report
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v3.0.0
         with:
           name: integration-test-coverage-report
           path: build/reports/jacoco/test/integration-test
@@ -231,19 +231,19 @@ jobs:
           distribution: 'adopt'
 
       - name: Download artifact
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v3.0.0
         with:
           name: package
           path: build/libs
 
       - name: Download unit test coverage report
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v3.0.0
         with:
           name: unit-test-coverage-report
           path: build/reports/jacoco/test/unit-test
 
       - name: Download integration test coverage report
-        uses: actions/download-artifact@v2.1.0
+        uses: actions/download-artifact@v3.0.0
         with:
           name: integration-test-coverage-report
           path: build/reports/jacoco/test/integration-test
