@@ -13,8 +13,8 @@ import com.example.realworld.util.builder.user.UserBuilder
 import com.example.realworld.util.extension.getForEntity
 import com.example.realworld.util.extension.putForEntity
 import io.kotest.assertions.asClue
+import io.kotest.matchers.equality.FieldsEqualityCheckConfig
 import io.kotest.matchers.equality.shouldBeEqualToComparingFields
-import io.kotest.matchers.equality.shouldBeEqualToComparingFieldsExcept
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 import io.kotest.matchers.shouldNotBe
@@ -85,7 +85,8 @@ class UserControllerTest {
 
         // assert
         response.statusCode shouldBe HttpStatus.OK
-        actualUser.shouldBeEqualToComparingFieldsExcept(expected, UpdateUserResponseData::token)
+        actualUser.shouldBeEqualToComparingFields(expected,
+            FieldsEqualityCheckConfig(propertiesToExclude = listOf(UpdateUserResponseData::token)))
         actualUser.token.asClue {
             it shouldNot beEmpty()
             it shouldNotBe token

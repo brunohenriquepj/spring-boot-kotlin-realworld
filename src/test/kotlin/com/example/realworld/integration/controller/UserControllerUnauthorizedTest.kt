@@ -5,7 +5,6 @@ import com.example.realworld.repository.UserRepository
 import com.example.realworld.service.UserService
 import com.example.realworld.util.annotation.WebMvcIntegrationTest
 import com.example.realworld.util.extension.authorizationHeader
-import com.example.realworld.util.extension.shouldBeEqualJson
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -18,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
 @WebMvcIntegrationTest(controllers = [UserControllerTest::class])
-class UserControllerForbiddenTest {
+class UserControllerUnauthorizedTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 
@@ -49,9 +48,7 @@ class UserControllerForbiddenTest {
         val response = mockMvc.perform(request).andReturn().response
 
         // assert
-        response.status shouldBe HttpStatus.FORBIDDEN.value()
-        response.contentType shouldBe MediaType.APPLICATION_JSON_VALUE
-        response.contentAsString shouldBeEqualJson expected
+        response.status shouldBe HttpStatus.UNAUTHORIZED.value()
     }
 
     @Test
@@ -67,8 +64,6 @@ class UserControllerForbiddenTest {
         val response = mockMvc.perform(request).andReturn().response
 
         // assert
-        response.status shouldBe HttpStatus.FORBIDDEN.value()
-        response.contentType shouldBe MediaType.APPLICATION_JSON_VALUE
-        response.contentAsString shouldBeEqualJson expected
+        response.status shouldBe HttpStatus.UNAUTHORIZED.value()
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+
 class AuthenticationEntryPointHandler : AuthenticationEntryPoint {
     override fun commence(
         request: HttpServletRequest,

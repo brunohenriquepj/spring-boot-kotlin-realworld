@@ -1,7 +1,7 @@
 package com.example.realworld.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.PropertyNamingStrategy
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -10,7 +10,7 @@ class JsonConfiguration {
     @Bean
     fun objectMapper(): ObjectMapper {
         return ObjectMapper().apply {
-            propertyNamingStrategy = PropertyNamingStrategy.LOWER_CASE
+            propertyNamingStrategy =  PropertyNamingStrategies.LOWER_CASE
         }
     }
 }

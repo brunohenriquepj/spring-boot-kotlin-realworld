@@ -1,7 +1,7 @@
 package com.example.realworld.util
 
-import com.github.javafaker.Faker
-import java.util.*
+import net.datafaker.Faker
+import java.util.Locale
 
 class FakerPtBr {
     companion object {

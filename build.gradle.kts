@@ -1,19 +1,19 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.6.4"
+    id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.spring") version "1.6.10"
-    kotlin("plugin.jpa") version "1.6.10"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.spring") version "1.6.21"
+    kotlin("plugin.jpa") version "1.6.21"
     jacoco
-    id("com.adarshr.test-logger") version "3.1.0"
+    id("com.adarshr.test-logger") version "3.2.0"
 }
 
 
 group = "com.example"
 version = "0.0.0"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -27,26 +27,26 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.9")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    runtimeOnly("mysql:mysql-connector-java")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.mockk:mockk:1.12.2")
-    testImplementation("com.github.javafaker:javafaker:1.0.2")
-    testImplementation("io.kotest:kotest-assertions-core:4.6.3")
-    testImplementation("org.testcontainers:testcontainers:1.16.2")
-    testImplementation(platform("org.testcontainers:testcontainers-bom:1.16.2"))
-    testImplementation("org.testcontainers:junit-jupiter:1.16.2")
+    testImplementation("io.mockk:mockk:1.12.4")
+    testImplementation("net.datafaker:datafaker:1.4.0")
+    testImplementation("io.kotest:kotest-assertions-core:5.3.1")
+    testImplementation(platform("org.testcontainers:testcontainers-bom:1.17.2"))
+    testImplementation("org.testcontainers:testcontainers")
+    testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mysql")
-    testRuntimeOnly("mysql:mysql-connector-java")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
@@ -71,9 +71,9 @@ tasks.jacocoTestReport {
 
 tasks.jacocoTestReport {
     reports {
-        csv.isEnabled = false
-        xml.isEnabled = true
-        html.isEnabled = true
+        csv.required.set(false)
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 
