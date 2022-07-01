@@ -1,31 +1,36 @@
 package com.example.realworld.configuration
 
+import io.swagger.v3.oas.models.ExternalDocumentation
+import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.info.Info
+import io.swagger.v3.oas.models.info.License
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import springfox.documentation.builders.ApiInfoBuilder
-import springfox.documentation.builders.PathSelectors
-import springfox.documentation.builders.RequestHandlerSelectors
-import springfox.documentation.service.ApiInfo
-import springfox.documentation.spi.DocumentationType
-import springfox.documentation.spring.web.plugins.Docket
 
 @Configuration
 class SwaggerConfiguration {
     @Bean
-    fun api(): Docket {
-        return Docket(DocumentationType.SWAGGER_2)
-            .apiInfo(getApiInfo())
-            .select()
-            .apis(RequestHandlerSelectors.any())
-            .paths(PathSelectors.any())
-            .build()
+    fun api(): OpenAPI {
+        return OpenAPI()
+            .info(getApiInfo())
+            .externalDocs(getExternalDocumentation())
     }
 
-    private fun getApiInfo(): ApiInfo {
-        return ApiInfoBuilder()
+    private fun getExternalDocumentation(): ExternalDocumentation {
+        return ExternalDocumentation()
+            .description("RealWorld implementation using Spring Boot with Kotlin")
+            .url("https://github.com/brunohenriquepj/spring-boot-kotlin-realworld")
+    }
+
+    private fun getApiInfo(): Info {
+        return Info()
             .title("RealWorld API Doc")
             .description("Real World API")
+            .license(
+                License()
+                    .name("MIT License")
+                    .url("https://github.com/brunohenriquepj/spring-boot-kotlin-realworld/blob/main/LICENSE")
+            )
             .version("0.0.0")
-            .build()
     }
 }

@@ -5,21 +5,16 @@ import com.example.realworld.dto.user.response.CreateUserResponse
 import com.example.realworld.dto.user.response.CreateUserResponseData
 import com.example.realworld.util.annotation.SpringBootIntegrationTest
 import com.example.realworld.util.builder.user.CreateUserRequestDataBuilder
-import io.kotest.matchers.equality.shouldBeEqualToComparingFieldsExcept
+import io.kotest.matchers.equality.FieldsEqualityCheckConfig
+import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNot
 import io.kotest.matchers.string.beEmpty
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.postForEntity
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Import
-import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
-import org.springframework.web.context.request.RequestContextListener
 
 
 @SpringBootIntegrationTest
@@ -48,7 +43,7 @@ class UsersControllerTest {
 
         // assert
         response.statusCode shouldBe HttpStatus.CREATED
-        actualUser.shouldBeEqualToComparingFieldsExcept(expected, CreateUserResponseData::token)
+        actualUser.shouldBeEqualToComparingFields(expected, FieldsEqualityCheckConfig(propertiesToExclude = listOf(CreateUserResponseData::token)))
         actualUser.token.trim() shouldNot beEmpty()
     }
 }

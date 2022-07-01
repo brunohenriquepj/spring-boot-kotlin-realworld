@@ -11,7 +11,8 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class AuthorizationFilter(
+
+class AuthenticationFilter(
     authenticationManager: AuthenticationManager,
     private val tokenUtil: TokenUtil,
     private val userRepository: UserRepository,
